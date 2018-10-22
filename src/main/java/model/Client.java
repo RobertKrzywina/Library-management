@@ -24,8 +24,6 @@ public class Client implements Serializable {
     private int age;
     @Column(name = "client_is_student")
     private boolean isStudent;
-    @Column(name = "client_money_debts")
-    private double moneyDebts;
     @OneToMany(mappedBy = "client",
                fetch = FetchType.EAGER)
     private List<Book> books;
@@ -37,7 +35,6 @@ public class Client implements Serializable {
         this.lastName = lastName;
         this.age = age;
         this.isStudent = isStudent;
-        moneyDebts = 0.0;
         books = new ArrayList<>();
     }
 
@@ -81,14 +78,6 @@ public class Client implements Serializable {
         isStudent = student;
     }
 
-    public double getMoneyDebts() {
-        return moneyDebts;
-    }
-
-    public void setMoneyDebts(double moneyDebts) {
-        this.moneyDebts = moneyDebts;
-    }
-
     public List<Book> getBooks() {
         return books;
     }
@@ -105,7 +94,6 @@ public class Client implements Serializable {
                 ", lastName='" + lastName + '\'' +
                 ", age=" + age +
                 ", isStudent=" + isStudent +
-                ", moneyDebts=" + moneyDebts +
                 ", books=" + books +
                 '}';
     }

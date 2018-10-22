@@ -1,4 +1,4 @@
-package com.robert.pl.springjpa;
+package app;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

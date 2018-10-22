@@ -1,4 +1,4 @@
-package com.robert.pl.springjpa;
+package app;
 
 import dao.BookDao;
 import dao.ClientDao;
@@ -25,44 +25,49 @@ public class SpringJpaApplication {
         BookDao bookDao = ctx.getBean(BookDao.class);
         ClientDao clientDao = ctx.getBean(ClientDao.class);
 
-        books.add(new Book("9783598215018", "How to do COCAIN", "Pablo Escobar"));
-        books.add(new Book("9781402894626", "Escape from prison", "Michael Scofield"));
-        books.add(new Book("9782402823423", "Java for beginners", "Cay S. Hostman"));
+        books.add(new Book("9781250104625", "Pablo Escobar: My Father", "Juan Pablo Escobar"));
+        books.add(new Book("9781402894626", "How to disapear? Simple tutorial", "Michael Scofield"));
+        books.add(new Book("2345464634223", "Java for beginners", "Cay S. Horstmann"));
         books.add(new Book("9734345341214", "Zawód: Programista", "Maciej Aniserowicz"));
+        books.add(new Book("9567657956934", "Junior Developer", "Mateusz Kupilas"));
+        books.add(new Book("2349034589935", "Clean Code", "Robert C. Martin"));
+        books.add(new Book("4040404040404", "Solve problems tutorial", "Zombie Developer"));
+        books.add(new Book("9999999999999", "C++ Language", "Stephen Prata"));
+        books.add(new Book("9343943941213", "Ronnie O'Sulivan biography", "Ronnie O'Sulivan"));
 
         clients.add(new Client("Pablo", "Escobar", 30, false));
         clients.add(new Client("Michael", "Scofield", 25, true));
         clients.add(new Client("John", "Abruzzi", 32, false));
         clients.add(new Client("Albert", "Einstein", 50, true));
 
-//        show(clients);
-//        show(books);
+        bookDao.showDetails(books, "All books");
+        bookDao.showDetails(clients, "All clients");
 
         ////////////////////////////////////////////////////////////////////////////////////////////
 
         books.forEach(bookDao::save);
         clients.forEach(clientDao::save);
 
-        clientDao.delete(1L);
+        clientDao.borrowBook(1L, 2L);
+        clientDao.borrowBook(1L, 3L);
+        clientDao.borrowBook(1L, 4L);
 
-        clientDao.updateStudentStatus(2L, false);
-        bookDao.updateISBN(1L, "1111111111111");
+        clientDao.borrowBook(2L, 1L);
+        clientDao.borrowBook(2L, 1L);
+        clientDao.borrowBook(2L, 4L);
 
-        for(long i=1; i<books.size()+1; i++) {
-            System.out.println(bookDao.get(i));
-        }
+        clientDao.borrowBook(3L, 6L);
+        clientDao.borrowBook(3L, 9L);
+        clientDao.borrowBook(3L, 8L);
 
-        for(long i=1; i<clients.size()+1; i++) {
-            System.out.println(clientDao.get(i));
+        clientDao.borrowBook(4L, 7L);
+        clientDao.borrowBook(4L, 5L);
+        clientDao.borrowBook(4L, 1L);
+
+        for (Client client : clients) {
+            System.out.println(clientDao.get(client.getId()));
         }
 
         ctx.close();
-    }
-
-    private static void show(List<?> entities) {
-        for (Object entity : entities) {
-            System.out.println(entity);
-        }
-        System.out.println("////////////////////////////////////////////////////////////////////////////////////////////");
     }
 }

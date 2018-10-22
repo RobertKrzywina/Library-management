@@ -22,6 +22,8 @@ public class Book implements Serializable {
     @Column(name = "book_author",
             nullable = false)
     private String author;
+    @Column(name = "book_available")
+    private boolean isAvailable;
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "book_client_id")
     private Client client;
@@ -32,6 +34,7 @@ public class Book implements Serializable {
         this.ISBN = ISBN;
         this.title = title;
         this.author = author;
+        isAvailable = true;
     }
 
     public Long getId() {
@@ -66,6 +69,14 @@ public class Book implements Serializable {
         this.author = author;
     }
 
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
+    }
+
     public Client getClient() {
         return client;
     }
@@ -81,7 +92,7 @@ public class Book implements Serializable {
                 ", ISBN='" + ISBN + '\'' +
                 ", title='" + title + '\'' +
                 ", author='" + author + '\'' +
-                ", client=" + client +
+                ", isAvailable=" + isAvailable +
                 '}';
     }
 }
