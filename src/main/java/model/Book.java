@@ -22,7 +22,7 @@ public class Book implements Serializable {
     @Column(name = "book_author",
             nullable = false)
     private String author;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "book_client_id")
     private Client client;
 

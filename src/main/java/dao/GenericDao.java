@@ -1,5 +1,7 @@
 package dao;
 
+import exceptions.Exceptions;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
@@ -27,4 +29,12 @@ public abstract class GenericDao<T, K> {
         return entityManager.find(type, id);
     }
 
+    public void delete(K id) {
+        T entity = entityManager.find(type, id);
+        if (entity != null) {
+            entityManager.remove(entity);
+        } else {
+            throw new Exceptions(Exceptions.NO_ENTITY_IN_DB);
+        }
+    }
 }
